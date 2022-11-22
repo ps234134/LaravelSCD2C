@@ -1,4 +1,4 @@
-Git handleiding
+cd soGit handleiding
 
 - git add .
 - git push
