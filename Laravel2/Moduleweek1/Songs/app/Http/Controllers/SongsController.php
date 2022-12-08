@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Album;
+use App\Models\Song;
 use App\Models\Songs;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $songs = Songs::all();
+        $songs = Song::all();
         return view('songs.index', ['songs' => $songs], ['title' => 'Songs']);
 
     }
@@ -42,7 +43,7 @@ class SongsController extends Controller
             'singer' => 'required',
         ]);
 
-        $newSong = new Songs([
+        $newSong = new Song([
             'title' => $request->get('title'),
             'singer' => $request->get('singer'),
         ]);
@@ -55,10 +56,10 @@ class SongsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Songs  $songs
+     * @param  \App\Models\Song  $songs
      * @return \Illuminate\Http\Response
      */
-    public function show(Songs $songs)
+    public function show(Song $songs)
     {
         //
     }
@@ -71,8 +72,12 @@ class SongsController extends Controller
      */
     public function edit($id)
     {
-        $songs = Songs::find($id);
-        return view('songs.edit', ['songs' => $songs],['title' => 'Songs']);
+        $songs = Song::find($id);
+        $albums = Album::wheredoesntHave('songs', function ($query) use ($id) {
+            $query->where('song_id', $id);
+        })->get();
+
+        return view('songs.edit', ['songs' => $songs, 'albums' => $albums],['title' => 'Songs']);
     }
 
     /**
@@ -89,7 +94,7 @@ class SongsController extends Controller
             'singer' => 'required',
         ]);
 
-        $songs = Songs::find($id);
+        $songs = Song::find($id);
         $songs->title = $request->get('title');
         $songs->singer = $request->get('singer');
         $songs->save();
@@ -98,15 +103,26 @@ class SongsController extends Controller
             ->with('success', 'Song updated successfully');
     }
 
+    public function AttachAlbum(Song $song, Album $album)
+    {
+        $song->albums()->attach($album);
+        return redirect()->route('songs.edit', $song);
+    }
+
+    public function DetachAlbum(Song $song, Album $album)
+    {
+        $song->albums()->detach($album);
+        return redirect()->route('songs.edit', $song);
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Songs  $songs
+     * @param  \App\Models\Song  $songs
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $songs = Songs::find($id);
+        $songs = Song::find($id);
         $songs->delete();
 
         return redirect()->route('songs.index',['title' => 'Songs'])

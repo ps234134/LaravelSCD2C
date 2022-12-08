@@ -29,6 +29,9 @@
                                     Title</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                    Album</th>
+                                <th
+                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Created_At</th>
                                 <th class="px-6 py-3 text-sm text-left text-gray-500 border-b border-gray-200 bg-gray-50"
                                     colspan="2">
@@ -49,14 +52,18 @@
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="text-sm leading-5 text-gray-900">
-                                            {{ $song->title }}
+                                            {{ $song->singer}}
                                         </div>
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $song->singer }}
+                                        {{ $song->title }}
                                     </td>
-
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        @foreach($song->albums as $album)
+                                                <option value="{{ $album->id }}">{{ $album->name }}</option>
+                                        @endforeach
+                                    </td>
                                     <td
                                         class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                         <span> {{ $song->created_at }}</span>

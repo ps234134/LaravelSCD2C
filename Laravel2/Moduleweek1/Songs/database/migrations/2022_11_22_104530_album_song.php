@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->mediumInteger('year')->nullable();
-            $table->integer('times_sold')->nullable();
-            $table->foreignId('band_id');
-            $table->timestamps();
+        Schema::create('album_song', function (Blueprint $table) {
+            $table->foreignId('album_id');
+            $table->foreignId('song_id');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        //
     }
 };

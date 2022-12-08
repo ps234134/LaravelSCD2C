@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Bands;
+use App\Models\Band;
 
 class BandsController extends Controller
 {
@@ -14,7 +14,7 @@ class BandsController extends Controller
      */
     public function index()
     {
-        $bands = Bands::all();
+        $bands = Band::all();
         return view('bands.index', ['bands' => $bands], ['title' => 'Bands']);
     }
 
@@ -43,7 +43,7 @@ class BandsController extends Controller
             'active_till' => 'required',
         ]);
 
-        $newBand = new Bands([
+        $newBand = new Band([
             'name' => $request->get('name'),
             'genre' => $request->get('genre'),
             'founded' => $request->get('founded'),
@@ -76,7 +76,7 @@ class BandsController extends Controller
      */
     public function edit($id)
     {
-        $bands = Bands::find($id);
+        $bands = Band::find($id);
         return view('bands.edit', ['bands' => $bands],['title' => 'Bands']);
     }
 
@@ -96,7 +96,7 @@ class BandsController extends Controller
             'active_till' => 'required',
         ]);
 
-        $bands = Bands::find($id);
+        $bands = Band::find($id);
         $bands->name = $request->get('name');
         $bands->genre = $request->get('genre');
         $bands->founded = $request->get('founded');
@@ -115,7 +115,7 @@ class BandsController extends Controller
      */
     public function destroy($id)
     {
-        $bands = Bands::find($id);
+        $bands = Band::find($id);
         $bands->delete();
 
         return redirect()->route('bands.index',['title' => 'Bands'])

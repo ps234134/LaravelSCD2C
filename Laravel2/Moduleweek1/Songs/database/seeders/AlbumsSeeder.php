@@ -19,40 +19,35 @@ class AlbumsSeeder extends Seeder
             'name' => 'The Final Countdown',
             'year' => 1986,
             'times_sold' => 10000000,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'band_id' => 1,
         ]);
 
         DB::table('albums')->insert([
-            'name' => 'Hello',
-            'year' => 1986,
+            'name' => 'Hot Space',
+            'year' => 1982,
             'times_sold' => 10000000,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'band_id' => 2,
         ]);
 
         DB::table('albums')->insert([
-            'name' => 'Ok',
-            'year' => 1986,
+            'name' => 'highway to hell',
+            'year' => 1979,
             'times_sold' => 10000000,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'band_id' => 3,
         ]);
 
         DB::table('albums')->insert([
-            'name' => 'No',
-            'year' => 1986,
+            'name' => 'abbey road',
+            'year' => 1969,
             'times_sold' => 10000000,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'band_id' => 4,
         ]);
 
         DB::table('albums')->insert([
             'name' => 'Sure',
             'year' => 1986,
             'times_sold' => 10000000,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'band_id' => 5,
         ]);
 
     }

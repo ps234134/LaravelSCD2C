@@ -24,7 +24,7 @@ class SongsSeeder extends Seeder
         ]);
 
         DB::table('songs')->insert([
-            'title' => 'Hello',
+            'title' => 'Love Chaser',
             'singer' => 'Europe',
             'created_at' => now(),
             'updated_at' => now(),
@@ -32,24 +32,24 @@ class SongsSeeder extends Seeder
         ]);
 
         DB::table('songs')->insert([
-            'title' => 'Ok',
-            'singer' => 'Europe',
+            'title' => 'Dancer',
+            'singer' => 'Queen',
             'created_at' => now(),
             'updated_at' => now(),
 
         ]);
 
         DB::table('songs')->insert([
-            'title' => 'No',
-            'singer' => 'Europe',
+            'title' => 'highway to hell',
+            'singer' => 'AC/DC',
             'created_at' => now(),
             'updated_at' => now(),
 
         ]);
 
         DB::table('songs')->insert([
-            'title' => 'Sure',
-            'singer' => 'Europe',
+            'title' => 'come together',
+            'singer' => 'the Beatles',
             'created_at' => now(),
             'updated_at' => now(),
 
