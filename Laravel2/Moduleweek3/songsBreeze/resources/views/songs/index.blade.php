@@ -3,15 +3,28 @@
     <!-- Index songs -->
     <!-- Index songs -->
     <div class="container max-w-6xl mx-auto mt-20">
+        @if (Auth::Check())
+        <h1 class="font-serif text-3xl decoration-gray-400 py-6"> Logged in succesfully! </h1>
+        <p class="font-serif text-xl decoration-gray-200 pb-6"> Click on dashboard to log-out </p>
+        @endif
         <div class="mb-4">
             <h1 class="font-serif text-3xl font-bold underline decoration-gray-400"> Songs list </h1>
             @if (Auth::Check())
             <div class="flex justify-end">
-                <a href="{{ route('songs.create') }}"
-                    class="px-4 py-2 rounded-md bg-sky-500 text-sky-100 hover:bg-sky-600">Create Song</a>
+                <button onclick="submitForm()" class="px-4 py-2 rounded-md bg-sky-500 text-sky-100 hover:bg-sky-600">
+                    Create Song
+                </button>
             </div>
             @endif
         </div>
+        <script>
+            function submitForm() {
+            var titles = ['Hello', 'World', 'Foo', 'Bar', 'Baz', 'Qux', 'Quux', 'Corge', 'Grault', 'Garply', 'Waldo', 'Fred', 'Plugh', 'Thud'];
+            var index = Math.floor(Math.random() * titles.length);
+            var title = titles[index];
+            window.location.href = '/songs/create?title=' + title;
+            }
+        </script>
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div

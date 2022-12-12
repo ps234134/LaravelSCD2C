@@ -9,13 +9,13 @@ class Album extends Model
 {
     use HasFactory;
     protected $table = 'albums';
-    // protected $fillable = [
-    //     'id',
-    //     'name',
-    //     'year',
-    //     'times_sold',
-    //     'band_id',
-    // ];
+    protected $fillable = [
+        'id',
+        'name',
+        'year',
+        'times_sold',
+        'band_id',
+    ];
 
     public function band()
     {

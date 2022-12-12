@@ -5,6 +5,8 @@ use App\Models\Album;
 use App\Models\Song;
 use App\Models\Songs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Termwind\Components\Dd;
 
 class SongsController extends Controller
 {
@@ -25,9 +27,35 @@ class SongsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('songs.create',['title' => 'Songs']);
+
+            $songsFromAPI = [];
+            // Maak een lege array voor de songs die via de API worden opgehaald.
+            if($request->query->has('title')) {
+
+                // Als er een 'title' parameter is meegegeven in de query...
+                $api_key = '585457805ba32422207dd9a3ed5aec29';
+                // Definieer de API key die we zullen gebruiken voor de zoekopdracht.
+                $title = $request->query('title');
+                // Haal de titel op uit de query parameter.
+                $response = Http::get(
+                    'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' .
+                    $title . '&api_key=' . $api_key . '&format=json'
+                )->json();
+                // Voer een GET request uit naar de Last.fm API met de titel als zoekterm.
+                $songsFromAPI = $response["results"]["trackmatches"]["track"];
+                // Haal de songs uit de response en sla ze op in de $songsFromAPI array.
+
+            }
+            $API = collect($songsFromAPI)->map(function ($song) {
+                return [
+                    'id' => $song['mbid'],
+                    'title' => $song['name'],
+                    'singer' => $song['artist'],
+                ];
+            });
+            return view('songs.create',['songsFromAPI' => $API],['title' => 'Songs']);
     }
 
     /**

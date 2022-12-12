@@ -9,15 +9,15 @@ class Band extends Model
 {
     use HasFactory;
     protected $table = 'bands';
-    // protected $fillable = [
-    //     'id',
-    //     'name',
-    //     'genre',
-    //     'founded',
-    //     'active_till',
-    //     'created_at',
-    //     'updated_at',
-    // ];
+    protected $fillable = [
+        'id',
+        'name',
+        'genre',
+        'founded',
+        'active_till',
+        'created_at',
+        'updated_at',
+    ];
 
     public function albums()
     {
