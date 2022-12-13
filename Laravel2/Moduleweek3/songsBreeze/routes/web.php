@@ -6,6 +6,8 @@ use App\Http\Controllers\SongsController;
 use App\Http\Controllers\BandsController;
 use App\Http\Controllers\AlbumsController;
 
+use function GuzzleHttp\Promise\exception_for;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,7 @@ use App\Http\Controllers\AlbumsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/dashboard', function () {
     return view('/dashboard');
@@ -28,12 +31,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
 Route::get('/home', [SongsController::class, 'index']);
 Route::resource('songs', SongsController::class);
 Route::resource('bands', BandsController::class);
 Route::resource('albums', AlbumsController::class);
+
 
 
 Route::post('albums/{album}/songs/{song}/attach', [AlbumsController::class, 'AttachSong'])->name('albums.attach');
